@@ -13,7 +13,7 @@ interface TimeEntryModalProps {
   form: FormInstance;
   onOk: () => void;
   onCancel: () => void;
-  initialValues?: Record<string, string | number | null>
+  initialValues?: Record<string, string | number | null>;
 }
 
 const TimeEntryModal: React.FC<TimeEntryModalProps> = ({
@@ -21,10 +21,10 @@ const TimeEntryModal: React.FC<TimeEntryModalProps> = ({
   form,
   onOk,
   onCancel,
-  initialValues
+  initialValues,
 }) => {
   const dispatch = useAppDispatch();
-  const { services } = useAppSelector(state => state.timeEntries);
+  const { services } = useAppSelector((state) => state.timeEntries);
 
   useEffect(() => {
     dispatch(getServices());
@@ -40,16 +40,23 @@ const TimeEntryModal: React.FC<TimeEntryModalProps> = ({
     >
       <Form form={form} layout="vertical" initialValues={initialValues}>
         <Form.Item
-        name="date"
-        label="Date"
-        rules={[{ required: true, message: "Date is required" }]}
+          name="date"
+          label="Date"
+          rules={[{ required: true, message: "Date is required" }]}
         >
-        <DatePicker className="w-full" />
+          <DatePicker className="w-full" />
         </Form.Item>
         <Form.Item
           name="time"
           label="Time (minutes)"
-          rules={[{ required: true, message: "Time is required" }]}
+          rules={[
+            { required: true, message: "Time is required" },
+            {
+              type: "number",
+              min: 1,
+              message: "Value must be greater than 0!",
+            },
+          ]}
           data-cy="time-input"
         >
           <Input type="number" />
@@ -64,7 +71,11 @@ const TimeEntryModal: React.FC<TimeEntryModalProps> = ({
         >
           <Select data-cy="service-selector">
             {services.map((service: Service) => (
-              <Option key={service.id} value={service.id} data-cy="service-option">
+              <Option
+                key={service.id}
+                value={service.id}
+                data-cy="service-option"
+              >
                 {service.attributes.name}
               </Option>
             ))}
