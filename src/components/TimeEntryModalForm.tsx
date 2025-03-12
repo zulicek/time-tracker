@@ -52,7 +52,6 @@ const TimeEntryModal: React.FC<TimeEntryModalProps> = ({
           rules={[
             { required: true, message: "Time is required" },
             {
-              type: "number",
               min: 1,
               message: "Value must be greater than 0!",
             },
