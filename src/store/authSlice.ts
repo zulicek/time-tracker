@@ -30,7 +30,6 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     loginUser(state) {
-      console.log(state)
       state.token = TOKEN;
       state.organizationId = ORGANIZATION_ID;
       localStorage.setItem(

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Modal, Form, Input, Select, DatePicker, FormInstance } from "antd";
+import { Modal, Form, Input, Select, DatePicker, FormInstance, InputNumber } from "antd";
 import { Service } from "../types";
 import { getServices } from "../store/timeEntriesSlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
@@ -51,14 +51,9 @@ const TimeEntryModal: React.FC<TimeEntryModalProps> = ({
           label="Time (minutes)"
           rules={[
             { required: true, message: "Time is required" },
-            {
-              min: 1,
-              message: "Value must be greater than 0!",
-            },
           ]}
-          data-cy="time-input"
         >
-          <Input type="number" />
+          <InputNumber min="1" className="w-full!"  data-cy="time-input" />
         </Form.Item>
         <Form.Item name="note" label="Note" data-cy="note-input">
           <TextArea rows={4} />
